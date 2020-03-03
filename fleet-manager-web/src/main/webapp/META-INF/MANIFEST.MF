@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: MyALDv2.0 - Web Interface
+Implementation-Version: 2.9.75-SNAPSHOT
+Built-By: kaushik.kathiriya
+Specification-Title: MyALDv2.0 - Web Interface
+Implementation-Vendor-Id: com.ald.myald
+Created-By: Apache Maven 3.2.3
+Build-Jdk: 1.8.0_71
+Specification-Version: 2.9
+

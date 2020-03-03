@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- Scans within the base package of the application for @Component classes to configure as beans -->
+    <context:component-scan base-package="com.ald.plos.generic.db.dao,
+                                        com.ald.service,
+                                        com.ald.plos.generic.localization,
+                                        com.ald.plos.generic.services"/>
+
+     <!--Plos database session factory  -->
+     <bean id="dataSourcePlos" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+        <property name="url" value="jdbc:sqlserver://localhost; databaseName=PLOS"/>
+        <property name="username" value="sa"/>
+        <property name="password" value="Password12$"/>
+    </bean>
+
+    <bean id="sessionFactoryPlos" name="sessionFactoryPlos" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+         <property name="dataSource" ref="dataSourcePlos"/>
+         <property name="hibernateProperties">
+              <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+              </props>
+          </property>
+        <property name="packagesToScan" value="com.ald.plos.generic.db.entities" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManagerPlos" mode="proxy" proxy-target-class="true" />
+    <bean id="transactionManagerPlos" name="transactionManagerPlos" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactoryPlos" />
+    </bean>
+
+     <!--Localizaton database session factory  -->
+     <bean id="dataSourceLocalization" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+        <property name="url" value="jdbc:sqlserver://NL-DEVSQL01\ALD_NL; databaseName=LocalizationTool"/>
+        <property name="username" value="milesweb"/>
+        <property name="password" value="alddla1!"/>
+    </bean>
+
+    <bean id="sessionFactoryLocalization" name="sessionFactoryLocalization" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+         <property name="dataSource" ref="dataSourceLocalization"/>
+         <property name="hibernateProperties">
+              <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+              </props>
+          </property>
+        <property name="packagesToScan" value="com.ald.plos.generic.db.entities" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManagerLocalization" mode="proxy" proxy-target-class="true" />
+    <bean id="transactionManagerLocalization" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactoryLocalization" />
+    </bean>
+
+</beans>

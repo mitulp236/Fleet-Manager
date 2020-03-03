@@ -1,0 +1,23 @@
+<FindBugsFilter>
+	<Match>
+       <Class name=".*Test" />
+    </Match>
+	<Match>
+		<Bug code="EI,EI2" />
+	</Match>
+	<Match>	
+		<Or>
+			<Method name="_persistence_get" params="java.lang.String" />
+			<Method name="_persistence_set" params="java.lang.String,java.lang.Object" />
+		</Or>
+		<Bug code="ES" />
+	</Match>
+	<Match>	
+		<Method name="_persistence_set_id" params="int" />
+		<Bug code="Bx" />
+	</Match>	
+	<Match>	
+		<Method name="_persistence_set_isAsyncRequest" params="boolean" />
+		<Bug code="Dm" />
+	</Match>
+</FindBugsFilter>

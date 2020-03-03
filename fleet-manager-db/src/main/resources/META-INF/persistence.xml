@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="LocalizationTool">
+        <non-jta-data-source>java:comp/env/jdbc/LocalizationTool</non-jta-data-source>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="eclipselink.ddl-generation.output-mode" value="database" />
+            <property name="eclipselink.weaving" value="static" />
+            <property name="eclipselink.target-database" value="Auto"/>
+            <property name="eclipselink.target-server" value="None"/>
+            <property name="eclipselink.ddl-generation" value="none"/>
+            <property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
+            <property name="eclipselink.logging.level" value="FINEST"/>
+            <property name="eclipselink.logging.timestamp" value="true"/>
+            <property name="eclipselink.logging.session" value="false"/>
+            <property name="eclipselink.logging.thread" value="true"/>
+            <property name="eclipselink.logging.exceptions" value="true"/>
+
+            <!-- 0 is a valid ID -->
+            <property name="eclipselink.id-validation" value="NULL"/>
+
+            <!-- We need the following, else EclipseLink cannot properly translate column names in Native SQL queries. -->
+            <property name="eclipselink.jdbc.uppercase-columns" value="true"/>
+        </properties>
+    </persistence-unit>
+    <persistence-unit name="MyLease" transaction-type="RESOURCE_LOCAL">
+        <non-jta-data-source>java:comp/env/jdbc/BBDD_DATASOURCE</non-jta-data-source>
+        <class>com.ald.db.mylease.entities.ErrorLogs</class>
+        <class>com.ald.db.mylease.entities.LoginHistory</class>
+        <class>com.ald.db.mylease.entities.ColorSchemeDefault</class>
+        <class>com.ald.db.mylease.entities.ColorSchemeFleetManager</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="eclipselink.ddl-generation.output-mode" value="database" />
+            <property name="eclipselink.weaving" value="static" />
+            <property name="eclipselink.target-database" value="Auto"/>
+            <property name="eclipselink.target-server" value="None"/>
+            <property name="eclipselink.ddl-generation" value="none"/>
+            <property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
+            <property name="eclipselink.logging.level" value="FINEST"/>
+            <property name="eclipselink.logging.timestamp" value="true"/>
+            <property name="eclipselink.logging.session" value="false"/>
+            <property name="eclipselink.logging.thread" value="true"/>
+            <property name="eclipselink.logging.exceptions" value="true"/>
+
+            <!-- 0 is a valid ID -->
+            <property name="eclipselink.id-validation" value="NULL"/>
+
+            <!-- We need the following, else EclipseLink cannot properly translate column names in Native SQL queries. -->
+            <property name="eclipselink.jdbc.uppercase-columns" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>

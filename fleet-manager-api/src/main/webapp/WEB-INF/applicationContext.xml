@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:task="http://www.springframework.org/schema/task"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+     http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+    <!-- to activate MVC annotation -->
+    <mvc:annotation-driven />
+
+    <!-- scans packages to find and register beans within the application context -->
+    <context:component-scan base-package="com.gtl.fm.api" />
+
+    <!-- Hibernate session factories -->
+    <!--Fleet manager database session factory  -->
+     <bean id="dataSourcefm" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost/fleetmanager"/>
+        
+        <property name="username" value="root"/>
+        <property name="password" value=""/> 
+       
+    </bean>
+
+    <bean id="sessionFactoryfm" name="sessionFactoryfm" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+         <property name="dataSource" ref="dataSourcefm"/>
+         <property name="hibernateProperties">
+              <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">false</prop>
+              </props>
+          </property>
+        <property name="packagesToScan" value="com.gtl.fm.db.entities" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManagerfm" mode="proxy" proxy-target-class="true" />
+    <bean id="transactionManagerfm" name="transactionManagerfm" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactoryfm" />
+    </bean>
+
+    <!-- Multipart resolver to upload file -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+         <property name="maxUploadSize" value="268435456"/>
+     </bean>
+     
+     <bean name="authService" class="com.gtl.fm.service.Impl.AuthServiceImpl"></bean>
+     <bean name="authDao" class="com.gtl.fm.db.dao.impl.AuthDaoImpl"></bean>
+     
+     <bean name="driverService" class="com.gtl.fm.service.Impl.DriverServiceImpl"></bean>
+     <bean name="driverDao" class="com.gtl.fm.db.dao.impl.DriverDaoImpl"></bean>
+     
+</beans>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Miles Service Configuration</comment>
+	<!-- Discount configuration - Start -->
+	<entry key="miles_endpoint">http://nl-accwas03.automotive.ald.socgen:9080/miles/servlet/be.sofico.basecamp.servlet.tools.CommandServlet</entry>
+	<entry key="Logon">MWS/Logon</entry>
+	<entry key="Logoff">MWS/LogOff</entry>
+	<entry key="trustedLogOn">Session/TrustedLogon</entry>
+	<entry key="getUser">User/User</entry>
+	<entry key="lockUserAccount">User/Lock</entry>
+	<entry key="SaveChangePassword">User/Cpw</entry>
+	<entry key="RemindPassword">User/Remind</entry>
+	<entry key="getMultiSessionInfo">MWS/GetMWSMultiSessionInfo</entry>
+
+	<entry key="GetContactDetail">Contact/Contact</entry>
+	<entry key="getSupplier">Supplier/Supplier</entry>
+	<entry key="getCustomerDetails">Customer/Customer</entry>
+	<entry key="GetContractDetail">Contract/Contract</entry>
+	<entry key="GetCompleteAddress">Contact/CompleteAddress</entry>
+	<entry key="getSupplierPartnerDetail">Contract/TPSComponents</entry>
+	<entry key="CreateSupplier">MWS/CreateMWSSupplier</entry>
+	<entry key="updateSupplier">MWS/SaveMWSSupplier</entry>
+
+	<entry key="GetContactDetails">Contact/ContactDetail</entry>
+	<entry key="getCreateNewContactTemplate">Contact/CreateContact</entry>
+
+	<entry key="Generic">Search/Generic</entry>
+	<entry key="Native">Search/Native</entry>
+	<entry key="RetrieveProperties">MWS/RetrieveDynamicProperties</entry>
+	<entry key="SaveProperties">MWS/SaveDynamicProperties</entry>
+
+	<entry key="createIncident">Incident/Create</entry>
+	<entry key="getIncident">Incident/Incident</entry>
+	<entry key="saveIncident">Incident/Save</entry>
+	<entry key="startWorkFlow">WorkFlow/Start</entry>
+	<entry key="GenerateDocument">MWS/GenerateReport</entry>
+
+	<entry key="uploadDocument">Document/Import</entry>
+	<entry key="documentHistory">Document/History</entry>
+	<entry key="documentContent">Document/Content</entry>
+
+	<entry key="getTransportOrder">TransportOrder/Generate</entry>
+	<entry key="saveTransportOrder">TransportOrder/TransportOrder</entry>
+	<entry key="getFleetVehicle">Vehicle/FleetVehicle</entry>
+	<entry key="registerMileage">MWS/RegisterCostCenterEvent</entry>
+
+	<entry key="getNewDriverTemplate">Create/Driver</entry>
+	<entry key="getDriverDetails">Driver/Driver</entry>
+	<entry key="createNewDriver">Create/Driver</entry>
+	<entry key="updateDriver">Driver/Driver</entry>
+	<entry key="registerDriver">Register/Driver</entry>
+	<entry key="changeContractDriver">Contract/ChangeDriver</entry>
+	<entry key="registerDriverChange">Contract/DriverChange</entry>
+
+	<entry key="RegisterNewVehicleReservation">MWS/RegisterNewVehicleReservation</entry>
+	<entry key="SaveVehicleReservation">MWS/SaveMWSVehicleReservation</entry>
+
+	<entry key="GetServiceComponentList">MWS/GetServiceComponentList</entry>
+	<entry key="registerObjectMessage">MWS/RegisterObjectMessage</entry>
+
+	<entry key="getCostCenterEvents">Contract/Events</entry>
+	<entry key="testService">Generic/TestService</entry>
+
+</properties>

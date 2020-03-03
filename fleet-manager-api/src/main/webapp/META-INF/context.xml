@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+<!-- 
+    <Valve className="org.apache.catalina.valves.AccessLogValve"
+        rotatable="true"
+        directory="/var/log/fm/acceptance"
+        prefix="api-access."
+        suffix=".log"
+        fileDateFormat="yyyyMMdd"
+        pattern="%t[%I][%h][%m][%U][%q][%D][%s][%b][%{User-Agent}i]"
+        buffered="false"
+        resolveHosts="false"
+        maxDays="15"
+    />
+ -->    
+</Context>
