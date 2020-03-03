@@ -1,0 +1,14 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+      <groupId>com.gtl.fm</groupId>
+      <artifactId>fm-parent</artifactId>
+      <version>2.9.101-SNAPSHOT</version>
+  </parent>
+    <artifactId>fleet-manager-common</artifactId>
+    <packaging>jar</packaging>
+    <name>fleet-manager Cross-cutting Layer</name>
+    <dependencies>
+		<!-- No dependencies identified yet -->
+    </dependencies>
+</project>
