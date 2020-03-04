@@ -38,13 +38,16 @@ public class DriverDaoImpl extends GenericDaoImpl<Driver> implements DriverDao{
 	public Driver getDriver(int id) {
 		Driver affectedDriver = null;
 		try {
-			affectedDriver =  findById(id);
-			if(affectedDriver.isActive()== false) {
-				return null;
-			}
+			boolean activeFlag = true;
+			affectedDriver =  createQuery("from Driver where id = :Id and isActive = :activeFlag",Driver.class)
+							  .setParameter("Id", id)			
+							  .setParameter("activeFlag", activeFlag)
+							  .getSingleResult();
+			
 		}
 		catch(NoResultException ex) {
 			logger.error("Failed to find a driver");
+			return null;
 		}
 		return affectedDriver;
 	}

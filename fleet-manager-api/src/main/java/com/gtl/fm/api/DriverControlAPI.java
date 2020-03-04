@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gtl.fm.service.DriverService;
 import com.gtl.fm.api.dto.DriverDto;
 import com.gtl.fm.api.dto.response.DriverResponse;
+import com.gtl.fm.api.exception.RestException;
+import com.gtl.fm.core.exception.DataNotFoundException;
 import com.gtl.fm.db.entities.Driver;
 
 import io.swagger.annotations.Api;
@@ -54,13 +56,14 @@ public class DriverControlAPI {
 	@CrossOrigin
     @ApiOperation(value = "driver list by id")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = { "application/json" })
-    public DriverDto Driver(@ApiParam ("Driver Id")  @PathVariable int id) {    	
-		DriverDto dto = null;
-		Driver affectedDriver = driverService.getDriver(id);
-    	if(affectedDriver!=null) {
-            dto = DriverDto.transform(affectedDriver);
-    	}
-    	return dto;
+    public DriverDto Driver(@ApiParam ("Driver Id")  @PathVariable int id) throws RestException {    	
+
+		try {
+			Driver driver = driverService.getDriver(id);
+			return  DriverDto.transform(driver);
+		}catch (DataNotFoundException e) {
+			throw new RestException(1001, "Driver not found", HttpStatus.NOT_ACCEPTABLE, e);
+		}
     }
 	
 	

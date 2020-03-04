@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gtl.fm.core.exception.DataNotFoundException;
 import com.gtl.fm.db.dao.DriverDao;
 import com.gtl.fm.db.entities.Driver;
+
 import com.gtl.fm.service.DriverService;
 
 @Service
@@ -22,12 +24,23 @@ public class DriverServiceImpl implements DriverService {
 		return this.driverDao.getDriver();
 	}
 
+//	@Override
+//	@Transactional
+//	public Driver getDriver(int id) {
+//		return this.driverDao.getDriver(id);
+//	}
+	
 	@Override
 	@Transactional
 	public Driver getDriver(int id) {
-		return this.driverDao.getDriver(id);
+		Driver driver = this.driverDao.getDriver(id);
+		if(driver != null) {
+			return driver;
+		}
+		throw new DataNotFoundException("Driver with id "+id+"is not found ! ");
+		
 	}
-
+	
 	@Override
 	@Transactional
 	public Driver saveDriver(Driver driver) {
