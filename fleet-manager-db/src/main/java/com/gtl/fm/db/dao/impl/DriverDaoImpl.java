@@ -98,6 +98,20 @@ public class DriverDaoImpl extends GenericDaoImpl<Driver> implements DriverDao{
 		}
 		return affectedDrivers;
 	}
+	
+	//find driver by id
+	@Override
+	public Driver findByEmail(String email) {
+		Driver driver = null;
+		try {
+			driver =  createQuery("from Driver where emial =:email ",Driver.class)
+					  .setParameter("email",email)
+					  .getSingleResult();
+		}catch (NoResultException ex) {
+			logger.error("Drivers email : {} is already in the database",email);
+		}
+		return driver;
+	}
 
 	
 }

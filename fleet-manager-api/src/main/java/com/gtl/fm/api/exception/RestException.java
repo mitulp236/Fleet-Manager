@@ -40,5 +40,4 @@ public class RestException extends RuntimeException{
 	}
 	
 	
-	
 }

@@ -59,6 +59,5 @@ public class DriverServiceImpl implements DriverService {
 	public List<Driver> getDeletedDrivers() {
 		return this.driverDao.getDeletedDrivers();
 	}
-
-
+	
 }

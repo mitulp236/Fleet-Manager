@@ -73,6 +73,7 @@ public class DriverControlAPI {
     @RequestMapping(value = "save", method = RequestMethod.POST, consumes = { "application/json" },produces = { "application/json" })      
     public ResponseEntity<DriverResponse> Driver(@RequestBody DriverDto driverDto) {
 		Driver dvr = driverDto.toEntity();
+		
 		Driver affectedDriver = driverService.saveDriver(dvr);
 		DriverResponse res = new DriverResponse();
     	if(affectedDriver!=null) {

@@ -16,4 +16,6 @@ public interface DriverDao {
 	Driver deleteDriver(int id);
 	
 	List<Driver> getDeletedDrivers();
+
+	Driver findByEmail(String email);
 }
