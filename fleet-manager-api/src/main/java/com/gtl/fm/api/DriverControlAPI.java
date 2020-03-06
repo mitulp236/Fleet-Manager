@@ -17,6 +17,7 @@ import com.gtl.fm.api.dto.DriverDto;
 import com.gtl.fm.api.dto.response.DriverResponse;
 import com.gtl.fm.api.exception.RestException;
 import com.gtl.fm.core.exception.DataNotFoundException;
+import com.gtl.fm.core.exception.EmailAlreadyUsedException;
 import com.gtl.fm.db.entities.Driver;
 
 import io.swagger.annotations.Api;
@@ -33,7 +34,7 @@ public class DriverControlAPI {
     @ApiOperation(value = "driver g")
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String hello() {    	
-		return "hello";
+		return "hello world";
     }
 	
 	
@@ -74,16 +75,23 @@ public class DriverControlAPI {
     public ResponseEntity<DriverResponse> Driver(@RequestBody DriverDto driverDto) {
 		Driver dvr = driverDto.toEntity();
 		
-		Driver affectedDriver = driverService.saveDriver(dvr);
-		DriverResponse res = new DriverResponse();
-    	if(affectedDriver!=null) {
-    		res.setMessage("Driver Successfully Added !");
-    		res.setCode(200);
-            return ResponseEntity.status(HttpStatus.OK).body(res);
-    	}
-    	res.setMessage("Please try again !");
-		res.setCode(401);
-    	return ResponseEntity.status(401).body(res);
+		
+		try {
+			Driver validDriverChecker = driverService.findByEmail(dvr.getEmail());
+			Driver affectedDriver = driverService.saveDriver(dvr);
+			DriverResponse res = new DriverResponse();
+	    	if(affectedDriver!=null) {
+	    		res.setMessage("Driver Successfully Added !");
+	    		res.setCode(200);
+	            return ResponseEntity.status(HttpStatus.OK).body(res);
+	    	}
+	    	res.setMessage("Please try again !");
+			res.setCode(401);
+			return ResponseEntity.status(401).body(res);
+		}
+		catch (EmailAlreadyUsedException e) {
+			throw new RestException(1006, "Driver with email: "+dvr.getEmail()+" already exist !", HttpStatus.NOT_ACCEPTABLE, e);
+		}	
     }
 	
 	//for delete the driver

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gtl.fm.core.exception.DataNotFoundException;
+import com.gtl.fm.core.exception.EmailAlreadyUsedException;
 import com.gtl.fm.db.dao.DriverDao;
 import com.gtl.fm.db.entities.Driver;
 
@@ -58,6 +59,17 @@ public class DriverServiceImpl implements DriverService {
 	@Transactional
 	public List<Driver> getDeletedDrivers() {
 		return this.driverDao.getDeletedDrivers();
+	}
+
+	@Override
+	@Transactional
+	public Driver findByEmail(String email) {
+		
+		Driver driver = this.driverDao.findByEmail(email);
+		if(driver != null) {
+			throw new EmailAlreadyUsedException("Driver with email: "+email+" already exist !");
+		}
+		return null;
 	}
 	
 }

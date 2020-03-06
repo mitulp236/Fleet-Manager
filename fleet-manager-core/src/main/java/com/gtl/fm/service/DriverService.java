@@ -16,5 +16,7 @@ public interface DriverService {
 	
 	List<Driver> getDeletedDrivers();
 	
+	Driver findByEmail(String email);
+	
 	
 }
