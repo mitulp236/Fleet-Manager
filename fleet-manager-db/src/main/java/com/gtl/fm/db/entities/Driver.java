@@ -27,7 +27,7 @@ public class Driver {
 	private String lastName;
 	@Column
 	private Date dob;
-	@Column
+	@Column(unique = true)
 	private String email;
 	@Column
 	private String telephone;

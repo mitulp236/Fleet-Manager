@@ -77,7 +77,9 @@ public class DriverControlAPI {
 		
 		
 		try {
-			Driver validDriverChecker = driverService.findByEmail(dvr.getEmail());
+			if(dvr.getId() == null) {
+				 driverService.findByEmail(dvr.getEmail());
+			}
 			Driver affectedDriver = driverService.saveDriver(dvr);
 			DriverResponse res = new DriverResponse();
 	    	if(affectedDriver!=null) {
@@ -85,12 +87,12 @@ public class DriverControlAPI {
 	    		res.setCode(200);
 	            return ResponseEntity.status(HttpStatus.OK).body(res);
 	    	}
-	    	res.setMessage("Please try again !");
-			res.setCode(401);
+	    	res.setMessage("Driver not Added ! please try again");
+			res.setCode(1007);
 			return ResponseEntity.status(401).body(res);
 		}
 		catch (EmailAlreadyUsedException e) {
-			throw new RestException(1006, "Driver with email: "+dvr.getEmail()+" already exist !", HttpStatus.NOT_ACCEPTABLE, e);
+			throw new RestException(1006, e.getMessage(), HttpStatus.NOT_ACCEPTABLE, e);
 		}	
     }
 	
@@ -123,7 +125,5 @@ public class DriverControlAPI {
 	    	}
 	        return ResponseEntity.status(HttpStatus.OK).body(null);
 	    }
-	
-	
 	
 }

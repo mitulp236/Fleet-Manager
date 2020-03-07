@@ -1,5 +1,6 @@
 package com.gtl.fm.db.dao.impl;
 
+
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import com.gtl.fm.db.dao.DriverDao;
 import com.gtl.fm.db.entities.Driver;
+import com.gtl.fm.db.exception.RequestedEmailNotAvailableException;
 
 @Repository
 public class DriverDaoImpl extends GenericDaoImpl<Driver> implements DriverDao{
@@ -26,11 +28,6 @@ public class DriverDaoImpl extends GenericDaoImpl<Driver> implements DriverDao{
 		}catch (NoResultException ex) {
 			logger.error("Failed to find a drivers!");
 		}
-//		try {
-//			affectedDriver = findAll();
-//		}catch (NoResultException ex) {
-//			logger.error("Failed to find a drivers ");
-//		}
 		return affectedDriver;
 	}
 
@@ -46,7 +43,6 @@ public class DriverDaoImpl extends GenericDaoImpl<Driver> implements DriverDao{
 			
 		}
 		catch(NoResultException ex) {
-			logger.error("Failed to find a driver");
 			return null;
 		}
 		return affectedDriver;
@@ -55,17 +51,21 @@ public class DriverDaoImpl extends GenericDaoImpl<Driver> implements DriverDao{
 	@Override
 	public Driver saveDriver(Driver driver) {
 		driver.setActive(true);
-		try {
-			if(driver.getId() != null) {
+		
+		if(driver.getId() != null) {
+			try {
+				Driver dvr = createQuery("from Driver where email =:Email",Driver.class).setParameter("Email", driver.getEmail()).getSingleResult();
+				if(dvr.getId() != driver.getId()) {
+					throw new RequestedEmailNotAvailableException();
+				}
+			}catch (NoResultException e) {
 				update(driver);
 			}
-			else{
-				save(driver);
-			}
-		}catch(Exception ex){
-			logger.error("Failed to save or update  driver");
-			return null;
 		}
+		else{
+			save(driver);
+		}
+		
 		return driver;
 	}
 
@@ -111,7 +111,5 @@ public class DriverDaoImpl extends GenericDaoImpl<Driver> implements DriverDao{
 			logger.error("Drivers email : {} is already in the database",email);
 		}
 		return driver;
-	}
-
-	
+	}	
 }

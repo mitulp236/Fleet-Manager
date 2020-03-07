@@ -10,7 +10,7 @@ import com.gtl.fm.core.exception.DataNotFoundException;
 import com.gtl.fm.core.exception.EmailAlreadyUsedException;
 import com.gtl.fm.db.dao.DriverDao;
 import com.gtl.fm.db.entities.Driver;
-
+import com.gtl.fm.db.exception.RequestedEmailNotAvailableException;
 import com.gtl.fm.service.DriverService;
 
 @Service
@@ -45,7 +45,11 @@ public class DriverServiceImpl implements DriverService {
 	@Override
 	@Transactional
 	public Driver saveDriver(Driver driver) {
-		return this.driverDao.saveDriver(driver);
+		try {
+			return this.driverDao.saveDriver(driver);
+		}catch (RequestedEmailNotAvailableException ex) {
+			throw new EmailAlreadyUsedException(driver.getEmail()+" is already used ! try with other email");
+		}
 	}
 
 
@@ -64,7 +68,6 @@ public class DriverServiceImpl implements DriverService {
 	@Override
 	@Transactional
 	public Driver findByEmail(String email) {
-		
 		Driver driver = this.driverDao.findByEmail(email);
 		if(driver != null) {
 			throw new EmailAlreadyUsedException("Driver with email: "+email+" already exist !");
