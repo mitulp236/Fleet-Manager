@@ -47,6 +47,7 @@ public class DriverControlAPI {
     @ApiOperation(value = "driver list")
     @RequestMapping(value = "", method = RequestMethod.GET, produces = { "application/json" })
     public ResponseEntity<List<Driver>> Driver() {    	
+		
 		List<Driver> affectedDrivers = driverService.getDriver();
     	if(affectedDrivers!=null) {
             return ResponseEntity.status(HttpStatus.OK).body(affectedDrivers);
@@ -100,7 +101,7 @@ public class DriverControlAPI {
 		}	
     }
 	
-	//for delete the driver
+		//for delete the driver
 		@CrossOrigin
 	    @ApiOperation(value = "driver delete")
 	    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = { "application/json" })      

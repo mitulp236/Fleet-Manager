@@ -17,7 +17,9 @@
     <mvc:annotation-driven />
 
     <!-- scans packages to find and register beans within the application context -->
-    <context:component-scan base-package="com.gtl.fm.api" />
+    <context:component-scan base-package="com.gtl.fm.api,
+    										com.gtl.fm.service,
+    										com.gtl.fm.db.dao" />
 
     <!-- Hibernate session factories -->
     <!--Fleet manager database session factory  -->
@@ -52,10 +54,10 @@
          <property name="maxUploadSize" value="268435456"/>
      </bean>
      
-     <bean name="authService" class="com.gtl.fm.service.Impl.AuthServiceImpl"></bean>
+     <!-- <bean name="authService" class="com.gtl.fm.service.Impl.AuthServiceImpl"></bean>
      <bean name="authDao" class="com.gtl.fm.db.dao.impl.AuthDaoImpl"></bean>
      
      <bean name="driverService" class="com.gtl.fm.service.Impl.DriverServiceImpl"></bean>
-     <bean name="driverDao" class="com.gtl.fm.db.dao.impl.DriverDaoImpl"></bean>
+     <bean name="driverDao" class="com.gtl.fm.db.dao.impl.DriverDaoImpl"></bean> -->
      
 </beans>

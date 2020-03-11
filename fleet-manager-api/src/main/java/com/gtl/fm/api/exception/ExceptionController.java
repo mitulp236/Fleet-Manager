@@ -5,15 +5,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.gtl.fm.core.exception.DataNotFoundException;
-import com.gtl.fm.core.exception.EmailAlreadyUsedException;
-import com.gtl.fm.core.exception.ValidationException;
-
 @ControllerAdvice
 public class ExceptionController extends ResponseEntityExceptionHandler {
 
 
-	@ExceptionHandler(DataNotFoundException.class)
+	@ExceptionHandler(RuntimeException.class)
 	public ResponseEntity<ErrorResponseDto> DataNotFoundHandler(RestException e) {
 		ErrorResponseDto errorResp = new ErrorResponseDto();
 		errorResp.setCode(e.getErroCode());
@@ -21,19 +17,19 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<ErrorResponseDto>(errorResp, e.getHttpStatus());
 	}	
 	
-	@ExceptionHandler(EmailAlreadyUsedException.class)
-	public ResponseEntity<ErrorResponseDto> EmailAlreadyUsedHandler(RestException e){
-		ErrorResponseDto errorResp = new ErrorResponseDto();
-		errorResp.setCode(e.getErroCode());
-		errorResp.setMessage(e.getErrorMessage());
-		return new ResponseEntity<ErrorResponseDto>(errorResp, e.getHttpStatus());
-	}
-	
-	@ExceptionHandler(ValidationException.class)
-	public ResponseEntity<ErrorResponseDto> ValidationExceptionHandler(RestException e){
-		ErrorResponseDto errorResp = new ErrorResponseDto();
-		errorResp.setCode(e.getErroCode());
-		errorResp.setMessage(e.getErrorMessage());
-		return new ResponseEntity<ErrorResponseDto>(errorResp, e.getHttpStatus());
-	}
+//	@ExceptionHandler(EmailAlreadyUsedException.class)
+//	public ResponseEntity<ErrorResponseDto> EmailAlreadyUsedHandler(RestException e){
+//		ErrorResponseDto errorResp = new ErrorResponseDto();
+//		errorResp.setCode(e.getErroCode());
+//		errorResp.setMessage(e.getErrorMessage());
+//		return new ResponseEntity<ErrorResponseDto>(errorResp, e.getHttpStatus());
+//	}
+//	
+//	@ExceptionHandler(ValidationException.class)
+//	public ResponseEntity<ErrorResponseDto> ValidationExceptionHandler(RestException e){
+//		ErrorResponseDto errorResp = new ErrorResponseDto();
+//		errorResp.setCode(e.getErroCode());
+//		errorResp.setMessage(e.getErrorMessage());
+//		return new ResponseEntity<ErrorResponseDto>(errorResp, e.getHttpStatus());
+//	}
 }
