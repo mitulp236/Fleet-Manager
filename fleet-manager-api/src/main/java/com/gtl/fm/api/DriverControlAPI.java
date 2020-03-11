@@ -18,6 +18,7 @@ import com.gtl.fm.api.dto.response.DriverResponse;
 import com.gtl.fm.api.exception.RestException;
 import com.gtl.fm.core.exception.DataNotFoundException;
 import com.gtl.fm.core.exception.EmailAlreadyUsedException;
+import com.gtl.fm.core.exception.ValidationException;
 import com.gtl.fm.db.entities.Driver;
 
 import io.swagger.annotations.Api;
@@ -93,6 +94,9 @@ public class DriverControlAPI {
 		}
 		catch (EmailAlreadyUsedException e) {
 			throw new RestException(1006, e.getMessage(), HttpStatus.NOT_ACCEPTABLE, e);
+		}
+		catch (ValidationException e) {
+			throw new RestException(e.getCode(), e.getMessage(), HttpStatus.NOT_ACCEPTABLE, e);
 		}	
     }
 	
