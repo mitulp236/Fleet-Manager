@@ -2,6 +2,7 @@ package com.gtl.fm.api;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
@@ -9,12 +10,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.gtl.fm.service.DriverService;
+
 import com.gtl.fm.api.dto.DriverDto;
 import com.gtl.fm.api.dto.response.DriverResponse;
+
 import com.gtl.fm.api.exception.RestException;
 import com.gtl.fm.core.exception.DataNotFoundException;
 import com.gtl.fm.core.exception.EmailAlreadyUsedException;
@@ -29,12 +33,17 @@ import io.swagger.annotations.ApiParam;
 @Api(value = "/driver", tags = "Driver")
 @RestController
 @RequestMapping(value = "/driver", produces = { "application/json" })
-public class DriverControlAPI {
+public class DriverControlAPI extends ApiBase{
 
+	
 	
     @ApiOperation(value = "driver g")
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public String hello() {    	
+    public String hello(@RequestHeader(value="auth-token") String auth_token) {
+    	if(!isAuthorized(auth_token)) {
+    		Throwable e = null;
+			throw new RestException(1004, "You are not Authorized ! please login again", HttpStatus.UNAUTHORIZED, e);
+    	}
 		return "hello world";
     }
 	
@@ -46,8 +55,11 @@ public class DriverControlAPI {
 	@CrossOrigin
     @ApiOperation(value = "driver list")
     @RequestMapping(value = "", method = RequestMethod.GET, produces = { "application/json" })
-    public ResponseEntity<List<Driver>> Driver() {    	
-		
+    public ResponseEntity<List<Driver>> Driver(@RequestHeader(value="auth-token") String auth_token) {    	
+		if(!isAuthorized(auth_token)) {
+    		Throwable e = null;
+			throw new RestException(1004, "You are not Authorized ! please login again", HttpStatus.UNAUTHORIZED, e);
+    	}
 		List<Driver> affectedDrivers = driverService.getDriver();
     	if(affectedDrivers!=null) {
             return ResponseEntity.status(HttpStatus.OK).body(affectedDrivers);
@@ -59,8 +71,11 @@ public class DriverControlAPI {
 	@CrossOrigin
     @ApiOperation(value = "driver list by id")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = { "application/json" })
-    public DriverDto Driver(@ApiParam ("Driver Id")  @PathVariable int id) throws RestException {    	
-
+    public DriverDto Driver(@ApiParam ("Driver Id")  @PathVariable int id,@RequestHeader(value="auth-token") String auth_token) throws RestException {    	
+		if(!isAuthorized(auth_token)) {
+    		Throwable e = null;
+			throw new RestException(1004, "You are not Authorized ! please login again", HttpStatus.UNAUTHORIZED, e);
+    	}
 		try {
 			Driver driver = driverService.getDriver(id);
 			return  DriverDto.transform(driver);
@@ -74,7 +89,13 @@ public class DriverControlAPI {
 	@CrossOrigin
     @ApiOperation(value = "driver save")
     @RequestMapping(value = "save", method = RequestMethod.POST, consumes = { "application/json" },produces = { "application/json" })      
-    public ResponseEntity<DriverResponse> Driver(@RequestBody DriverDto driverDto) {
+    public ResponseEntity<DriverResponse> Driver(@RequestBody DriverDto driverDto,@RequestHeader(value="auth-token") String auth_token) {
+		
+		if(!isAuthorized(auth_token)) {
+    		Throwable e = null;
+			throw new RestException(1004, "You are not Authorized ! please login again", HttpStatus.UNAUTHORIZED, e);
+    	}
+		
 		Driver dvr = driverDto.toEntity();
 		
 		
@@ -105,8 +126,13 @@ public class DriverControlAPI {
 		@CrossOrigin
 	    @ApiOperation(value = "driver delete")
 	    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = { "application/json" })      
-	    public ResponseEntity<DriverResponse> deleteDriver(@PathVariable int id) {
-
+	    public ResponseEntity<DriverResponse> deleteDriver(@PathVariable int id,@RequestHeader(value="auth-token") String auth_token) {
+				
+			if(!isAuthorized(auth_token)) {
+	    		Throwable e = null;
+				throw new RestException(1004, "You are not Authorized ! please login again", HttpStatus.UNAUTHORIZED, e);
+	    	}
+			
 			Driver affectedDriver = driverService.deleteDriver(id);
 			DriverResponse res = new DriverResponse();
 	    	if(affectedDriver!=null) {
@@ -123,7 +149,12 @@ public class DriverControlAPI {
 		@CrossOrigin
 	    @ApiOperation(value = "driver list")
 	    @RequestMapping(value = "/inactive", method = RequestMethod.GET, produces = { "application/json" })
-	    public ResponseEntity<List<Driver>> getDeletedDriver() {    	
+	    public ResponseEntity<List<Driver>> getDeletedDriver(@RequestHeader(value="auth-token") String auth_token) {    	
+			if(!isAuthorized(auth_token)) {
+	    		Throwable e = null;
+				throw new RestException(1004, "You are not Authorized ! please login again", HttpStatus.UNAUTHORIZED, e);
+	    	}
+			
 			List<Driver> affectedDrivers = driverService.getDeletedDrivers();
 	    	if(affectedDrivers!=null) {
 	            return ResponseEntity.status(HttpStatus.OK).body(affectedDrivers);

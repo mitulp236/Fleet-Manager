@@ -11,6 +11,12 @@
     <packaging>war</packaging>
 
     <dependencies>
+    
+	    <dependency>
+		    <groupId>net.jodah</groupId>
+		    <artifactId>expiringmap</artifactId>
+		    <version>${expiring-map.version}</version>
+		</dependency>
         <dependency>
             <groupId>com.gtl.fm</groupId>
             <artifactId>fleet-manager-core</artifactId>

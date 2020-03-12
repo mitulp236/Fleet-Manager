@@ -15,7 +15,14 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
 		errorResp.setCode(e.getErroCode());
 		errorResp.setMessage(e.getErrorMessage());
 		return new ResponseEntity<ErrorResponseDto>(errorResp, e.getHttpStatus());
-	}	
+	}
+//	@ExceptionHandler(Exception.class)
+//	public ResponseEntity<ErrorResponseDto> OtherExceptionHandler(RestException e) {
+//		ErrorResponseDto errorResp = new ErrorResponseDto();
+//		errorResp.setCode(1000);
+//		errorResp.setMessage("internal server error");
+//		return new ResponseEntity<ErrorResponseDto>(errorResp, HttpStatus.INTERNAL_SERVER_ERROR);
+//	}	
 	
 //	@ExceptionHandler(EmailAlreadyUsedException.class)
 //	public ResponseEntity<ErrorResponseDto> EmailAlreadyUsedHandler(RestException e){
