@@ -35,11 +35,9 @@ import io.swagger.annotations.ApiParam;
 @RequestMapping(value = "/driver", produces = { "application/json" })
 public class DriverControlAPI extends ApiBase{
 
-	
-	
     @ApiOperation(value = "driver g")
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public String hello(@RequestHeader(value="auth-token") String auth_token) {
+    public String hello(@RequestHeader(value="auth-token",defaultValue="") String auth_token) {
     	if(!isAuthorized(auth_token)) {
     		Throwable e = null;
 			throw new RestException(1004, "You are not Authorized ! please login again", HttpStatus.UNAUTHORIZED, e);
@@ -55,11 +53,12 @@ public class DriverControlAPI extends ApiBase{
 	@CrossOrigin
     @ApiOperation(value = "driver list")
     @RequestMapping(value = "", method = RequestMethod.GET, produces = { "application/json" })
-    public ResponseEntity<List<Driver>> Driver(@RequestHeader(value="auth-token") String auth_token) {    	
+    public ResponseEntity<List<Driver>> Driver(@RequestHeader(value="auth-token",defaultValue="") String auth_token) {    	
 		if(!isAuthorized(auth_token)) {
     		Throwable e = null;
 			throw new RestException(1004, "You are not Authorized ! please login again", HttpStatus.UNAUTHORIZED, e);
     	}
+
 		List<Driver> affectedDrivers = driverService.getDriver();
     	if(affectedDrivers!=null) {
             return ResponseEntity.status(HttpStatus.OK).body(affectedDrivers);
@@ -71,7 +70,7 @@ public class DriverControlAPI extends ApiBase{
 	@CrossOrigin
     @ApiOperation(value = "driver list by id")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = { "application/json" })
-    public DriverDto Driver(@ApiParam ("Driver Id")  @PathVariable int id,@RequestHeader(value="auth-token") String auth_token) throws RestException {    	
+    public DriverDto Driver(@ApiParam ("Driver Id")  @PathVariable int id,@RequestHeader(value="auth-token",defaultValue="") String auth_token) throws RestException {    	
 		if(!isAuthorized(auth_token)) {
     		Throwable e = null;
 			throw new RestException(1004, "You are not Authorized ! please login again", HttpStatus.UNAUTHORIZED, e);
@@ -89,7 +88,7 @@ public class DriverControlAPI extends ApiBase{
 	@CrossOrigin
     @ApiOperation(value = "driver save")
     @RequestMapping(value = "save", method = RequestMethod.POST, consumes = { "application/json" },produces = { "application/json" })      
-    public ResponseEntity<DriverResponse> Driver(@RequestBody DriverDto driverDto,@RequestHeader(value="auth-token") String auth_token) {
+    public ResponseEntity<DriverResponse> Driver(@RequestBody DriverDto driverDto,@RequestHeader(value="auth-token",defaultValue="") String auth_token) {
 		
 		if(!isAuthorized(auth_token)) {
     		Throwable e = null;
@@ -126,7 +125,7 @@ public class DriverControlAPI extends ApiBase{
 		@CrossOrigin
 	    @ApiOperation(value = "driver delete")
 	    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = { "application/json" })      
-	    public ResponseEntity<DriverResponse> deleteDriver(@PathVariable int id,@RequestHeader(value="auth-token") String auth_token) {
+	    public ResponseEntity<DriverResponse> deleteDriver(@PathVariable int id,@RequestHeader(value="auth-token",defaultValue="") String auth_token) {
 				
 			if(!isAuthorized(auth_token)) {
 	    		Throwable e = null;
@@ -149,7 +148,7 @@ public class DriverControlAPI extends ApiBase{
 		@CrossOrigin
 	    @ApiOperation(value = "driver list")
 	    @RequestMapping(value = "/inactive", method = RequestMethod.GET, produces = { "application/json" })
-	    public ResponseEntity<List<Driver>> getDeletedDriver(@RequestHeader(value="auth-token") String auth_token) {    	
+	    public ResponseEntity<List<Driver>> getDeletedDriver(@RequestHeader(value="auth-token",defaultValue="") String auth_token) {    	
 			if(!isAuthorized(auth_token)) {
 	    		Throwable e = null;
 				throw new RestException(1004, "You are not Authorized ! please login again", HttpStatus.UNAUTHORIZED, e);

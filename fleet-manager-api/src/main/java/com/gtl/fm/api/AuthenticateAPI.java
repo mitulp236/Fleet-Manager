@@ -39,7 +39,7 @@ public class AuthenticateAPI {
     @CrossOrigin
     @ApiOperation(value = "Authenticate user")
     @RequestMapping(value = "login", method = RequestMethod.POST, consumes = { "application/json" })
-    public ResponseEntity<UserResponseDto> login(@RequestBody UserDto usr,@RequestHeader(value="User-Agent") String userAgent) {
+    public ResponseEntity<UserResponseDto> login(@RequestBody UserDto usr,@RequestHeader(value="User-Agent",defaultValue="") String userAgent) {
     	try {
     		User user = authService.Login(usr.getEmail(),usr.getPassword());
     		String token = TokenUtils.generateToken(usr.getEmail(), userAgent);
@@ -62,8 +62,7 @@ public class AuthenticateAPI {
     	}
     }
     
-   
-    
+
     
     
     
