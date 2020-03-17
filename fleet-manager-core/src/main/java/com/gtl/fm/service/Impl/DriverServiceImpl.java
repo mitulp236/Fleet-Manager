@@ -25,7 +25,7 @@ public class DriverServiceImpl implements DriverService {
 	@Override
 	@Transactional
 	public List<Driver> getDriver() {
-		return this.driverDao.getDriver();
+		return this.driverDao.getDriver();	
 	}
 	
 	// FIND BY ID

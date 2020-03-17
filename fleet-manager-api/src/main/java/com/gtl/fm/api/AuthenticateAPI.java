@@ -1,6 +1,8 @@
 package com.gtl.fm.api;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpHeaders;
@@ -8,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,20 +30,24 @@ import com.gtl.fm.service.AuthService;
 @Api(value = "/user", tags = "User")
 @RestController
 @RequestMapping(value = "/user", produces = { "application/json" })
-public class AuthenticateAPI {
+public class AuthenticateAPI extends ApiBase {
 
 	
 	@Autowired
     private AuthService authService;
 	
-    
+	@Autowired
+	public HttpServletRequest clientrequest;
+	
     @CrossOrigin
     @ApiOperation(value = "Authenticate user")
     @RequestMapping(value = "login", method = RequestMethod.POST, consumes = { "application/json" })
-    public ResponseEntity<UserResponseDto> login(@RequestBody UserDto usr,@RequestHeader(value="User-Agent",defaultValue="") String userAgent) {
+    public ResponseEntity<UserResponseDto> login(@RequestBody UserDto usr) {
     	try {
     		User user = authService.Login(usr.getEmail(),usr.getPassword());
-    		String token = TokenUtils.generateToken(usr.getEmail(), userAgent);
+    		String randomString = TokenUtils.generateRandomString();
+    		String userAgent = clientrequest.getHeader("User-Agent");
+    		String token = TokenUtils.generateToken(usr.getEmail(), userAgent,randomString);
     		String x_auth_token = TokenUtils.generateMd5(token);
     		
     		UserResponseDto res = new UserResponseDto();
@@ -55,6 +60,7 @@ public class AuthenticateAPI {
     		
     		HttpHeaders header = new HttpHeaders();
     		header.set("auth-token",x_auth_token);
+    		header.set("session_key",randomString);
     		return ResponseEntity.status(HttpStatus.OK).headers(header).body(res);
             
     	}catch(UnAuthorisedException e) {

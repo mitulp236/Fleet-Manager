@@ -7,17 +7,21 @@ import java.security.NoSuchAlgorithmException;
 public class TokenUtils {
 	
 	//generate token
-	public static String generateToken(String email,String userAgent) {
+	public static String generateToken(String email,String userAgent,String randomString) {
+		String seprator = "#";
+		return email + seprator + randomString + seprator + userAgent;
+	}
+	
+	public static String generateRandomString() {
 		String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-					                + "0123456789"
-					                + "abcdefghijklmnopqrstuvxyz"; 
-		StringBuilder sb = new StringBuilder(10);
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz"; 
+		StringBuilder sb = new StringBuilder(15);
 		for(int i=0;i<15;i++) {
 			int index = (int)(AlphaNumericString.length()*Math.random());
 			sb.append(AlphaNumericString .charAt(index)); 
 		}
-		String seprator = "#";
-		return email + seprator + sb.toString() + seprator + userAgent;
+		return sb.toString();
 	}
 	
 	//generate MD5 Hash

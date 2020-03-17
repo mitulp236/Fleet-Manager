@@ -1,7 +1,10 @@
 package com.gtl.fm.api;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.gtl.fm.api.bean.SelfExpiringMap;
 import com.gtl.fm.api.dto.response.UserResponseDto;
+import com.gtl.fm.api.utils.TokenUtils;
 
 public class ApiBase {
 
@@ -27,21 +30,32 @@ public class ApiBase {
 	public static void setAuthorized_email(String authorized_email) {
 		Authorized_email = authorized_email;
 	}
+	
 
-	public static boolean isAuthorized(String auth_token) {
+
+	public static boolean isAuthorized(HttpServletRequest clientrequest){
+		String userAgent = clientrequest.getHeader("User-Agent");
+    	String auth_token = clientrequest.getHeader("auth-token");
+    	String session_key = clientrequest.getHeader("session_key");
+		
 		// check if auth_token is empty or null
-		if("".equalsIgnoreCase(auth_token)) {
+		if("".equalsIgnoreCase(auth_token)  || "".equalsIgnoreCase(session_key)) {
 			return false;
 		}
+
 		//get user object of here matching key(auth_token)
 		UserResponseDto usr =  SelfExpiringMap.map.get(auth_token);
-		
 		//null checker
 		if(usr!=null) {
-			setAuthorized_id(usr.getId());
-			setAuthorized_name(usr.getName());
-			setAuthorized_email(usr.getEmail());
-			return true;
+			String shadow_session_key = TokenUtils.generateToken(usr.getEmail(), userAgent, session_key);
+			System.out.println(shadow_session_key);
+			
+			if(TokenUtils.generateMd5(shadow_session_key).equals(auth_token)){
+				setAuthorized_id(usr.getId());
+				setAuthorized_name(usr.getName());
+				setAuthorized_email(usr.getEmail());
+				return true;
+			}
 		}
 		return false;
 	}
