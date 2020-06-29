@@ -60,6 +60,12 @@ public class ApiBase {
 		return false;
 	}
 	
+	public static Integer getUserId(HttpServletRequest clientrequest) {
+    	String auth_token = clientrequest.getHeader("auth-token");
+		UserResponseDto usr =  SelfExpiringMap.map.get(auth_token);
+		return usr.getId();
+	}
+	
 	
 	
 }

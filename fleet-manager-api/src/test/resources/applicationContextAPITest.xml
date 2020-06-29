@@ -40,7 +40,7 @@
     <tx:annotation-driven transaction-manager="transactionManagerPlos" mode="proxy" proxy-target-class="true" />
     <bean id="transactionManagerPlos" name="transactionManagerPlos" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactoryPlos" />
-    </bean>
+    </bean>																																																																
 
      <!--Localizaton database session factory  -->
      <bean id="dataSourceLocalization" class="org.apache.commons.dbcp.BasicDataSource">

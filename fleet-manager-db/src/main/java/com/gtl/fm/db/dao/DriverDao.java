@@ -7,9 +7,13 @@ import com.gtl.fm.db.entities.Driver;
 
 public interface DriverDao {
 
-	List<Driver> getDriver();
+	List<Driver> getDrivers(Integer start,String sortBy,String serchBy,String serchString);
 	
-	Driver getDriver(int id);
+	Long getPages();
+	
+	List<Driver> getAllDrivers();
+	
+	List<Driver> getDriver(int id);
 	
 	Driver saveDriver(Driver driver);
 	
@@ -18,4 +22,6 @@ public interface DriverDao {
 	List<Driver> getDeletedDrivers();
 
 	Driver findByEmail(String email);
+	
+	List<Driver> getDriverNames();
 }

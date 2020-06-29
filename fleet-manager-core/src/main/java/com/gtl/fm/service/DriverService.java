@@ -6,9 +6,13 @@ import com.gtl.fm.db.entities.Driver;
 
 public interface DriverService {
 
-	List<Driver> getDriver();
+	List<Driver> getDrivers(Integer start,String sortBy,String serchBy,String serchString);
 	
-	Driver getDriver(int id);
+	Long getPages();
+	
+	List<Driver> getAllDrivers();
+	
+	List<Driver> getDriver(int id);
 	
 	Driver saveDriver(Driver driver);
 	

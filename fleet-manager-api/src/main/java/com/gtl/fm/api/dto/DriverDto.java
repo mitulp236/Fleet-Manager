@@ -1,14 +1,17 @@
 package com.gtl.fm.api.dto;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.gtl.fm.db.entities.Driver;
 
 @XmlRootElement(name = "Driver")
 public class DriverDto {
-
+	
 	private Integer id;
 	private String title;
 	private String firstName;
@@ -28,9 +31,23 @@ public class DriverDto {
 	private Date licenseValidTo;
 	private Date endDate;
 	private boolean isActive;
+	private boolean webAccess;
+	private int catId;
+	private Long pages;
 	
-	
-	
+
+	public int getCatId() {
+		return catId;
+	}
+
+
+
+	public void setCatId(int catId) {
+		this.catId = catId;
+	}
+
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -256,6 +273,23 @@ public class DriverDto {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
+	public boolean isWebAccess() {
+		return webAccess;
+	}
+
+	public void setWebAccess(boolean webAccess) {
+		this.webAccess = webAccess;
+	}
+	
+	public Long getPages() {
+		return pages;
+	}
+
+
+
+	public void setPages(Long pages) {
+		this.pages = pages;
+	}
 
 
 
@@ -281,37 +315,47 @@ public class DriverDto {
 		driver.setLicenseValidTo(getLicenseValidTo());
 		driver.setEndDate(getEndDate());
 		driver.setActive(isActive());
+		driver.setWebAccess(isWebAccess());
+		driver.setCatId(getCatId());
+	
 		
 		return driver;
 	}
 	
-	public static DriverDto transform(Driver entity) {
-		DriverDto dto = new DriverDto();
+	@SuppressWarnings("null")
+	public static List<DriverDto> transform(List<Driver> entityList) {
 		
-		dto.setId(entity.getId());
-		dto.setTitle(entity.getTitle());
-		dto.setFirstName(entity.getFirstName());
-		dto.setMiddleName(entity.getMiddleName());
-		dto.setLastName(entity.getLastName());
-		dto.setDob(entity.getDob());
-		dto.setEmail(entity.getEmail());
-		dto.setTelephone(entity.getTelephone());
-		dto.setMobile(entity.getMobile());
-		dto.setJobTitle(entity.getJobTitle());
-		dto.setStaffNumber(entity.getStaffNumber());
-		dto.setAddress(entity.getAddress());
-		dto.setPostcode(entity.getPostcode());
-		dto.setCity(entity.getCity());
-		dto.setLicenseNo(entity.getLicenseNo());
-		dto.setLicenseValidFrom(entity.getLicenseValidFrom());
-		dto.setLicenseValidTo(entity.getLicenseValidTo());
-		dto.setEndDate(entity.getEndDate());
-		dto.setActive(entity.isActive());
+		List<DriverDto> listOfDrivers = new ArrayList<DriverDto>();
 		
 		
-		
-		
-		return dto;
+		for (Driver entity : entityList) {
+			
+			DriverDto dto = new DriverDto();
+			dto.setId(entity.getId());
+			dto.setTitle(entity.getTitle());
+			dto.setFirstName(entity.getFirstName());
+			dto.setMiddleName(entity.getMiddleName());
+			dto.setLastName(entity.getLastName());
+			dto.setDob(entity.getDob());
+			dto.setEmail(entity.getEmail());
+			dto.setTelephone(entity.getTelephone());
+			dto.setMobile(entity.getMobile());
+			dto.setJobTitle(entity.getJobTitle());
+			dto.setStaffNumber(entity.getStaffNumber());
+			dto.setAddress(entity.getAddress());
+			dto.setPostcode(entity.getPostcode());
+			dto.setCity(entity.getCity());
+			dto.setLicenseNo(entity.getLicenseNo());
+			dto.setLicenseValidFrom(entity.getLicenseValidFrom());
+			dto.setLicenseValidTo(entity.getLicenseValidTo());
+			dto.setEndDate(entity.getEndDate());
+			dto.setActive(entity.isActive());
+			dto.setWebAccess(entity.isWebAccess());
+			dto.setCatId(entity.getCatId());
+			
+			listOfDrivers.add(dto);
+		}
+		return listOfDrivers;
 	}
 	
 }

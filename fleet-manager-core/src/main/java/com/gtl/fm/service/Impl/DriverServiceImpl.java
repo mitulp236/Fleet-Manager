@@ -3,6 +3,7 @@ package com.gtl.fm.service.Impl;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.hibernate.query.criteria.internal.expression.function.LengthFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,15 +25,22 @@ public class DriverServiceImpl implements DriverService {
 	// LIST OF DRIVERS
 	@Override
 	@Transactional
-	public List<Driver> getDriver() {
-		return this.driverDao.getDriver();	
+	public List<Driver> getDrivers(Integer start,String sortBy,String serchBy,String serchString) {
+		return  this.driverDao.getDrivers(start,sortBy,serchBy,serchString);
 	}
+	
+	@Override
+	@Transactional
+	public Long getPages() {		
+		return this.driverDao.getPages();
+	}
+	
 	
 	// FIND BY ID
 	@Override
 	@Transactional
-	public Driver getDriver(int id) {
-		Driver driver = this.driverDao.getDriver(id);
+	public List<Driver> getDriver(int id) {
+		List<Driver> driver = this.driverDao.getDriver(id);
 		if(driver != null) {
 			return driver;
 		}
@@ -101,5 +109,15 @@ public class DriverServiceImpl implements DriverService {
 		}
 		return null;
 	}
+
+	@Override
+	@Transactional
+	public List<Driver> getAllDrivers() {
+		return this.driverDao.getAllDrivers();
+	}
+
+
+
+	
 	
 }

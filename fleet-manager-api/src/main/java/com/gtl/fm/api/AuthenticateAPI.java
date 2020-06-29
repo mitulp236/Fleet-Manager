@@ -26,6 +26,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import com.gtl.fm.service.AuthService;
 
+@CrossOrigin(origins = "*",exposedHeaders = "*,Access-Control-Expose-Headers" )
 @ComponentScan
 @Api(value = "/user", tags = "User")
 @RestController
@@ -39,8 +40,9 @@ public class AuthenticateAPI extends ApiBase {
 	@Autowired
 	public HttpServletRequest clientrequest;
 	
-    @CrossOrigin
+//    @CrossOrigin
     @ApiOperation(value = "Authenticate user")
+    @CrossOrigin
     @RequestMapping(value = "login", method = RequestMethod.POST, consumes = { "application/json" })
     public ResponseEntity<UserResponseDto> login(@RequestBody UserDto usr) {
     	try {

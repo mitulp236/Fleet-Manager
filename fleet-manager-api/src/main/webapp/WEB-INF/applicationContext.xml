@@ -25,7 +25,7 @@
     <!--Fleet manager database session factory  -->
      <bean id="dataSourcefm" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost/fleetmanager"/>
+        <property name="url" value="jdbc:mysql://localhost/fleetmanager2"/>
         
         <property name="username" value="root"/>
         <property name="password" value=""/> 
@@ -37,7 +37,7 @@
          <property name="hibernateProperties">
               <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">false</prop>
               </props>
           </property>
@@ -55,9 +55,12 @@
      </bean>
      
      <!-- <bean name="authService" class="com.gtl.fm.service.Impl.AuthServiceImpl"></bean>
-     <bean name="authDao" class="com.gtl.fm.db.dao.impl.AuthDaoImpl"></bean>
+     <bean name="authDao" class="com.gtl.fm.db.dao.impl.AuthDaoImpl"></bean> -->
      
-     <bean name="driverService" class="com.gtl.fm.service.Impl.DriverServiceImpl"></bean>
-     <bean name="driverDao" class="com.gtl.fm.db.dao.impl.DriverDaoImpl"></bean> -->
+     <bean name="budgetCatService" class="com.gtl.fm.service.Impl.BudgetCatServiceImpl"></bean>
+     <bean name="budgetCatDao" class="com.gtl.fm.db.dao.impl.BudgetCatDaoImpl"></bean> 
+     
+     <!--<bean name="contractService" class="com.gtl.fm.service.Impl.ContractServiceImpl"></bean>
+     <bean name="contractDao" class="com.gtl.fm.db.dao.impl.ContractDaoImpl"></bean> -->
      
 </beans>

@@ -2,11 +2,16 @@ package com.gtl.fm.db.entities;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -53,8 +58,25 @@ public class Driver {
 	private Date endDate;
 	@Column
 	private boolean isActive;
+	@Column
+	private boolean webAccess;
+	@Column
+	private int catId;
 	
 	
+	
+	public boolean isWebAccess() {
+		return webAccess;
+	}
+	public void setWebAccess(boolean webAccess) {
+		this.webAccess = webAccess;
+	}
+	public int getCatId() {
+		return catId;
+	}
+	public void setCatId(int catId) {
+		this.catId = catId;
+	}
 	public Integer getId() {
 		return id;
 	}
