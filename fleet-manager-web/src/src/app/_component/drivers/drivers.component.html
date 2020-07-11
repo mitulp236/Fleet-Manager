@@ -1,0 +1,108 @@
+<div class="container-fluid">
+    <!-- {{ searchForm.value | json }} -->
+    <form #searchForm="ngForm" (ngSubmit)="onSubmitSerchForm(searchForm)" novalidate>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <h2 class="main_label">DRIVERS</h2>
+            
+        </div>
+
+        
+        <div class="col-md-3">
+            <input class="form-control" #serchString="ngModel" required type="text" name="serchString" placeholder="Enter Serch string..." ngModel>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control" #serchBy="ngModel" name="serchBy" ngModel="firstName">
+                <option value="firstName">First Name</option>
+                <option value="lastName">Last Name</option>
+            </select>
+        </div>
+        <div class="col-md-1">
+            <button type="submit">Search</button>
+        </div>
+        
+    </div>
+    </form>
+    <!-- {{ data | json }} -->
+    <div class="row">
+        <div class="col-md-2">
+            <!-- <a class="btn btn-success " >New Lease Driver</a> -->
+            
+            <!-- <a class="btn btn-success " >New Lease Driver</a> -->
+            
+            <a class="btn btn-info btn_css" routerLink="/drivers/create" routerLinkActive="active">New Lease Driver</a>
+            <br />
+            <a class="btn btn-info btn_css" routerLink="/contract" routerLinkActive="active">Contract List</a>
+        </div>
+        <div class="col-md-10">      
+            <div *ngIf="drivers.length != 0">
+                <table class="table jumbotron">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">FirstName  <i (click)="shortBy('firstName')" class="fa fa-sort-amount-asc" aria-hidden="true"></i></th>
+                        <th scope="col">LastName   <i (click)="shortBy('lastName')" class="fa fa-sort-amount-asc" aria-hidden="true"></i></th>
+                        <th scope="col">WebAccess  </th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let driver of drivers">
+                            <th scope="row">{{driver.id}}</th>
+                            <td>{{driver.firstName}}</td>
+                            <td>{{driver.lastName}}</td>
+                            <!-- <td>{{driver.lastName}}</td> -->
+                            <td>
+
+                                <!-- {{driver.webAccess}} -->
+
+                                <label class="switch">
+                                    <input type="checkbox" [(ngModel)]="driver.webAccess" name="webAccess" (change)="webAccessToggle(driver.id)">
+                                    <span class="slider round"></span>
+                                </label>
+                            </td>
+                            <td>
+                                <button  class="btn btn-secondary btn-sm" (click)="editDriver(driver.id)"><i class="fa fa-pencil " aria-hidden="true"></i>  Edit</button>  
+                            </td>
+                            <td>
+                                <button  class="btn btn-danger btn-sm" (click)="deleteBtnClicked(driver.id)"><i class="fa fa-trash " aria-hidden="true"></i>  Delete</button>
+                            </td>
+                          </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="drivers.length == 0">
+                <h3 style="text-align: center;
+                    border: 2px solid black;
+                    margin: 10px;
+                    padding: 10%">
+                    DATA NOT FOUND
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-10" >
+            <div *ngIf="drivers.length != 0">
+                <div id="pagination">
+                    <nav  aria-label="Page navigation example">
+                        <ul class="pagination">
+                        <li class="page-item"><button [disabled]="" class="page-link" id="first_btn" (click)="first_btn_click()">First</button></li>
+                        <li class="page-item"><button [disabled]="previous_btn_status" class="page-link" id="previous_btn"  (click)="previous_btn_click()"> Previous</button></li>
+                        <li class="page-item"><button [disabled]="next_btn_status" class="page-link" id="next_btn"  (click)="next_btn_click()">Next</button></li>
+                        <li class="page-item"><button [disabled]="last_btn_status" class="page-link" id="last_btn"  (click)="last_btn_click()">Last</button></li>
+                        </ul>
+                    </nav>
+                </div> 
+            </div>
+        </div>
+    </div>
+    
+    
+</div>

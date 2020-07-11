@@ -1,0 +1,13 @@
+.jumbotron{
+    padding:1rem 1rem;
+    margin-bottom:1rem;
+    background-color:#EAF0F1;
+    border-radius:.2rem;
+    box-shadow: -2px -2px 5px #ffffff70, 3px 3px 15px #000000;
+}
+#pagination{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

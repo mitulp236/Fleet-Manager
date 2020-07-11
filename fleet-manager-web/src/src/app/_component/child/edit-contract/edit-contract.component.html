@@ -1,0 +1,113 @@
+<div class="container-fluid">
+
+    <div class="row">
+        
+       
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h2 class="main_label">EDIT CONTRACTS</h2>
+            </div>
+            <div class="col-md-4"></div>
+     
+
+    </div>
+
+    <!-- {{ contracteditform.value | json }} -->
+
+    <div class="row " >
+        <div class="col-md-4"></div>
+        <div class="col-md-4 jumbotron">
+        <div *ngIf="contract">
+            <form #contracteditform="ngForm" (ngSubmit)="onSubmit(contracteditform)" novalidate>
+                <table class="table ">
+                    <input type="hidden" id="id" 
+                            [ngModel]="contract.id" 
+                            name="id"
+                            #duration="ngModel" ngModel>
+                    <tr>
+                        <td>vehicaleName</td>
+                        <td><input [readonly]="true" type="text" id="vehicaleName"
+                             [ngModel]="contract.vehicaleName"
+                             name="vehicaleName"
+                             #vehicaleName="ngModel" ngModel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>licensePlate</td>
+                        <td><input [readonly]="true" type="text" id="licensePlate" 
+                            [ngModel]="contract.licensePlate"
+                            name="licensePlate"
+                            #licensePlate="ngModel" ngModel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>distance</td>
+                        <td><input [readonly]="true" type="text" id="distance"
+                            [ngModel]="contract.distance" 
+                            name="distance"
+                            #distance="ngModel" ngModel>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>duration</td>
+                        <td><input [readonly]="true" type="text" id="duration" 
+                            [ngModel]="contract.duration" 
+                            name="duration"
+                            #duration="ngModel" ngModel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>startDate</td>
+                        <td> <input [readonly]="true" type="date" id="startDate" 
+                            [ngModel]="contract.startDate" 
+                            name="startDate" 
+                            #startDate="ngModel" ngModel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>endDate</td>
+                        <td><input [readonly]="true" type="date" id="endDate" 
+                            [ngModel]="contract.endDate" 
+                            name="endDate"
+                            #endDate="ngModel" ngModel>
+                        </td>
+                    </tr>
+                    <tr>
+                        
+                        <td>Driver</td>
+                        
+                        <td>
+                            <select name="driverId" #driverId="ngModel" id="driverId" [ngModel]="contract.driver.id" ngModel>
+                               
+                                    <option *ngFor="let driver of driverNames" value="{{driver.id}}">{{driver.firstName}}  {{driver.lastName}}</option>
+                                
+                            </select>
+                        </td>
+                    </tr>
+                    <input type="hidden" id="userId" 
+                            [ngModel]="contract.userId" 
+                            name="userId"
+                            #userId="ngModel" ngModel>
+                    <tr>
+                        
+                        <td></td>
+                        
+                        <td>
+                            <button class="btn btn-primary" type="submit">SAVE</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>        
+    
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+   
+    
+    
+</div>
+
+
+

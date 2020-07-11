@@ -1,0 +1,8 @@
+@import '~ngx-toastr/toastr.css';
+
+body{
+    font-family: 'Baloo 2', cursive;
+    background-color: #f5f5f5;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

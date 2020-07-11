@@ -1,0 +1,111 @@
+
+<div class="container-fluid">
+    <form #searchForm="ngForm" (ngSubmit)="onSubmitSerchForm(searchForm)" novalidate>
+    <div class="row">
+            
+        <div class="col-md-5">
+            <h2 class="main_label">CONTRACTS</h2>
+        </div>
+        <div class="col-md-3">
+            <input class="form-control" #serchString="ngModel" required type="text" name="serchString" placeholder="Enter Serch string..." ngModel>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control" #serchBy="ngModel" name="serchBy" ngModel="vehicaleName">
+                <option value="vehicaleName">VehicaleName</option>
+                <option value="licensePlate">LicensePlate</option>
+                <option value="distance">Distance</option>
+                <option value="duration">Duration</option>
+                <option value="startDate">StartDate</option>
+                <option value="endDate">EndDate</option>
+                <option value="driverId">DriverId</option>
+                <!-- <option value="userId">UserId</option> -->
+            </select>
+        </div>
+        <div class="col-md-1">
+            <button type="submit">Search</button>
+        </div>
+    </div>
+</form>
+    
+    
+    
+    <!-- {{ data | json }} -->
+    <div class="row" >
+        <div class="col-md-12">
+            <div *ngIf="contracts.length != 0">
+                <table class="table jumbotron">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">vehicaleName  <i (click)="shortBy('vehicaleName')" class="fa fa-sort-amount-asc" aria-hidden="true"></i></th>
+                        <th scope="col">licensePlate  <i (click)="shortBy('licensePlate')" class="fa fa-sort-amount-asc" aria-hidden="true"></i></th>
+                        <th scope="col">distance  <i (click)="shortBy('distance')" class="fa fa-sort-amount-asc" aria-hidden="true"></i></th>
+                        <th scope="col">duration  <i (click)="shortBy('duration')" class="fa fa-sort-amount-asc" aria-hidden="true"></i></th>
+                        <th scope="col">startDate  <i (click)="shortBy('startDate')" class="fa fa-sort-amount-asc" aria-hidden="true"></i></th>
+                        <th scope="col">endDate  <i (click)="shortBy('endDate')" class="fa fa-sort-amount-asc" aria-hidden="true"></i></th>
+                        <th scope="col">DriverName  <i (click)="shortBy('driverId')" class="fa fa-sort-amount-asc" aria-hidden="true"></i></th>
+                        <th scope="col">edit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr *ngFor="let contract of contracts">
+                            <td>{{contract.id}}</td>
+                            <td>{{contract.vehicaleName}}</td>
+                            <td>{{contract.licensePlate}}</td>
+                            <td>{{contract.distance}} KM</td>
+                            <td>{{contract.duration}} Month</td>
+                            <td>{{contract.startDate}}</td>
+                            <td>{{contract.endDate}}</td>
+                    
+                            <td>
+                                {{contract.driver.firstName}}
+                            </td>
+                            <td><button class="btn btn-primary" (click)="edit_contract(contract.id)">EDIT</button></td>
+                    
+                        </tr>
+                        
+                    </tbody>
+                    </table>
+            </div>
+            <div *ngIf="contracts.length == 0">
+                <h3 style="text-align: center;
+                border: 2px solid black;
+                margin: 10px;
+                padding: 10%">
+                DATA NOT FOUND
+            </h3>
+            </div>
+        </div>
+        
+        
+    </div>
+
+    <div class="row">
+        <!-- <div class="col-md-2">
+
+        </div> -->
+        <div class="col-md-12" >
+            <div *ngIf="contracts.length != 0">
+                <div id="pagination">
+                    <nav  aria-label="Page navigation example">
+                        <ul class="pagination">
+                        <li class="page-item"><button [disabled]="" class="page-link" id="first_btn" (click)="first_btn_click()">First</button></li>
+                        <li class="page-item"><button [disabled]="previous_btn_status" class="page-link" id="previous_btn"  (click)="previous_btn_click()"> Previous</button></li>
+                        <li class="page-item"><button [disabled]="next_btn_status" class="page-link" id="next_btn"  (click)="next_btn_click()">Next</button></li>
+                        <li class="page-item"><button [disabled]="last_btn_status" class="page-link" id="last_btn"  (click)="last_btn_click()">Last</button></li>
+                        </ul>
+                    </nav>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

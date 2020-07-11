@@ -1,0 +1,180 @@
+
+<div class="container-fluid">
+    <div class="main_body">
+        <div>
+            
+            <!-- {{ driverForm.value | json }} -->
+            <br>
+
+            <!-- {{ driverForm.value | json }} -->
+            
+        </div>
+<form #driverForm="ngForm" (ngSubmit)="onSubmit(driverForm)" novalidate>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10"> <h2 class="main_label">NEW LEASE DRIVER</h2></div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="row">
+                <div class="col-md-1"></div>
+                <!-- <div ngModelGroup="driverInfo"> -->
+                <div class="col-md-5 section1 " >
+                    <div class="personal_data jumbotron">
+                        <h3 class="label_title">PERSONAL DATA</h3>
+                        <table  cellpadding="3" class="text-center">
+                            <!-- {{title.className}} -->
+                            <tr>
+                                <td >Title*</td>
+                                <!-- <td><input  class="form-control form-control-sm" 
+                                    pattern="^[A-Za-z]+$" type="text" name="title" id="title"  ngModel></td> -->
+
+                                <td><select required class="form-control form-control-sm"  name="title" id="title"  ngModel="Mr" >
+                                    <option value="Mr">Mr</option>
+                                    <option value="Mrs">Mrs</option>
+                                    <option value="Miss">Miss</option>
+                                </select></td>
+                                     
+                            </tr>
+                            <tr>
+                                <td>First Name*</td>
+                                <td><input #fname="ngModel" required [class.is-invalid]="fname.invalid && fname.touched" 
+                                    pattern="^[A-Za-z]+$" class="form-control form-control-sm"  type="text" 
+                                    name="firstName" id="firstName" ngModel></td>
+                            </tr>
+                            <tr>
+                                <td>Middle Name</td>
+                                <td><input  #mname="ngModel"  [class.is-invalid]="mname.invalid && mname.touched" 
+                                    pattern="^[A-Za-z]+$" class="form-control form-control-sm" type="text" 
+                                    name="middleName" id="middleName" ngModel></td>
+                            </tr>
+                            <tr>
+                                <td>Last Name*</td>
+                                <td><input #lname="ngModel" required [class.is-invalid]="lname.invalid && lname.touched"
+                                    pattern="^[A-Za-z]+$" class="form-control form-control-sm" type="text" name="lastName" id="lastName" ngModel></td>
+                            </tr>
+                            <tr>
+                                <td>Date of Birth*</td>
+                                <td><input required class="form-control form-control-sm" type="date" name="dob" id="dob" ngModel></td>
+                            </tr>
+                            <tr>
+                                <td>E-mail*</td>
+                                <td><input #email="ngModel" required [class.is-invalid]="email.invalid && email.touched"
+                                    pattern="^(.+)@(.+)$" class="form-control form-control-sm" type="email" name="email" id="email" ngModel></td>
+                            </tr>
+                            <tr>
+                                <td>Telephone</td>
+                                <td><input #telephone="ngModel"  [class.is-invalid]="telephone.invalid && telephone.touched"
+                                    class="form-control form-control-sm" type="number" name="telephone" id="telephone" ngModel></td>
+                            </tr>
+                            <tr>
+                                <td>Mobile No</td>
+                                <td><input #mobile="ngModel"  [class.is-invalid]="mobile.invalid && mobile.touched"
+                                    class="form-control form-control-sm" type="number" name="mobile" id="mobile" ngModel></td>
+                            </tr>
+                            <tr>
+                                <td>Job Title</td>
+                                <td><input class="form-control form-control-sm" type="text" name="jobTitle" id="jobTitle" ngModel></td>
+                            </tr>
+                            <tr>
+                                <td>Staff Number</td>
+                                <td><input class="form-control form-control-sm" type="number" name="staffNumber" id="staffNumber" ngModel></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div  class="address jumbotron">
+                        <table cellpadding="3">
+                            <h3 class="label_title">ADDRESS</h3>
+                            <tr>
+                                <td>Address*</td>
+                                <td><textarea #address="ngModel" required [class.is-invalid]="address.invalid && address.touched"
+                                    class="form-control form-control-sm" name="address" id="address" cols="21" rows="2" ngModel></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>Postcode*</td>
+                                <td><input #postcode="ngModel" required [class.is-invalid]="postcode.invalid && postcode.touched"
+                                    class="form-control form-control-sm" type="text" name="postcode" id="postcode" ngModel></td>
+                            </tr>
+                            <tr>
+                                <td>City*</td>
+                                <td><input #city="ngModel" required [class.is-invalid]="city.invalid && city.touched"
+                                    class="form-control form-control-sm" type="text" name="city" id="city" ngModel></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            
+            
+                <div class="col-md-5 section2 ">
+                    <div  class="licence jumbotron">
+                        <h3 class="label_title">LICENSE</h3>
+                        <table cellpadding="3">
+                            
+                            <tr>
+                                <td>Licence No</td>
+                                <td><input class="form-control form-control-sm" type="text" name="licenseNo" id="licenseNo" ngModel></td>
+                            </tr>
+                            <tr>
+                                <td>Licence Valid From</td>
+                                <td><input class="form-control form-control-sm" type="date" name="licenseValidFrom" id="licenseValidFrom" ngModel></td>
+                            </tr>
+                            <tr>
+                                <td>Licence Valid To</td>
+                                <td><input class="form-control form-control-sm" type="date" name="licenseValidTo" id="licenseValidTo" ngModel></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="cancelDriver jumbotron">
+                        <h3 class="label_title">CANCEL DRIVER</h3>
+                        <table cellpadding="3">
+                            <tr>
+                                <td>End Date*</td>
+                                <td><input required class="form-control form-control-sm" type="date" name="endDate" id="endDate" ngModel></td>
+                            </tr>
+                        </table>
+                    </div>
+                   
+                    <div  class="budget jumbotron">
+                        <h3 class="label_title">BUDGET CATEGORIE</h3>
+                        <table>
+                            <tr>
+                                <td>Budget Categorie  </td>
+                                <td>
+                                    <select class="form-control form-control-sm" name="catId" ngModel="0">
+                                        <option value="0">Select Budget Categorie</option>
+                                        <option *ngFor="let bc of budget_cats" value={{bc.catId}}>
+                                          {{bc.catName}}
+                                        </option>
+                                      </select>
+                                </td>
+                            </tr>
+                            
+                        </table>
+                    </div>
+                   
+                    <div   class="accessTo jumbotron">
+                        <h3 class="label_title">ACCESS</h3>
+                        <table>
+                            <tr>
+                                <td>
+                                    Port Access :
+                                </td>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" name="webAccess" ngModel>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="submit_btn text-right">
+                        <button type="submit" class="btn btn-primary">SAVE DRIVER</button>
+                    </div>
+               </div>
+               <div class="col-md-1"></div>
+            
+            </div>
+        </form>
+    </div>
+</div>
